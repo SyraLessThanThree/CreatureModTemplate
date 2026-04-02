@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace CreatureModTemplate.CreatureModTemplateCode.Monster;
 
-public class StaticStickman : CustomMonsterModel {
+public class StaticStickman : CustomMonsterModel, ISceneConversions {
     public override int MinInitialHp => 50;
     public override int MaxInitialHp => 55;
     private int AttackDamage => 10;
@@ -31,9 +31,10 @@ public override NCreatureVisuals? CreateCustomVisuals() {
     return NodeFactory<NCreatureVisuals>.CreateFromResource("res://CreatureModTemplate/images/scary_stickman.png");
 }
 */
-    public override NCreatureVisuals? CreateCustomVisuals() {
-        return NodeFactory<NCreatureVisuals>.CreateFromResource("res://CreatureModTemplate/images/scary_stickman.png");
-    }
+public override NCreatureVisuals? CreateCustomVisuals() {
+    NodeFactory.RegisterSceneType<NCreatureVisuals>("res://CreatureModTemplate/images/scary_stickman.png");
+    return NodeFactory<NCreatureVisuals>.CreateFromResource("res://CreatureModTemplate/images/scary_stickman.png");
+}
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() {
         var strike = new MoveState(
